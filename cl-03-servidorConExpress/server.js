@@ -1,11 +1,11 @@
 const express = require('express');
 require('dotenv').config();
 const Contenedor = require('./main');
-const productosDB = new Contenedor("productos.txt");
 
 
 const app = express();
 const port = process.env.PORT || 3111;
+const productosDB = new Contenedor("productos.txt");
 
 app.get('/', (req, res) => {
   res.send('Ahora, en vivo server con NodeJS!');
