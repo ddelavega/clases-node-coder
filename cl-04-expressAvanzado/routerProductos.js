@@ -45,8 +45,14 @@ routerProductos.post('/productos', (req, res) => {
 routerProductos.delete('/productos/:id', (req, res) => {
   const { id } = req.params;
   const producto = productos.findIndex(p => p.id === parseInt(id));
-  productos.splice(producto, 1);
-  res.json({msj: `Se borró el producto con ID: ${id}`});
+  if(producto !== -1) {
+    productos.splice(producto, 1);
+    console.log(producto, productos);
+    res.json({msj: `Se borró el producto con ID: ${id}`});
+  } else {
+    console.log(producto, productos);
+    res.json({msj: `No se encontró el producto con ID: ${id}`});
+  }
 });
 
 module.exports = routerProductos;
