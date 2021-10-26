@@ -11,7 +11,7 @@ let productos = [
   }
 ];
 
-routerProductos.get('/productos', async (req, res) => {
+routerProductos.get('/productos', (req, res) => {
     res.json({
       productos
     });
