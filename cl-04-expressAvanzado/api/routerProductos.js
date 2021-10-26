@@ -11,20 +11,20 @@ let productos = [
   }
 ];
 
-routerProductos.get('/productos', (req, res) => {
-    res.json({
+routerProductos.get('/productos', async (req, res) => {
+    // res.json({
+    //   productos
+    // });
+  try {
+      res.json({
+      status: 200,
+      message: "Get data ok from index",
       productos
     });
-  // try {
-    //   res.json({
-    //     status: 200,
-  //     message: "Get data ok from index",
-  //     productos
-  //   });
-  // } catch (error) {
-  //   console.error(error);
-  //   return res.status(500).send('Server error');
-  // }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server error');
+  }
 });
 
 routerProductos.get('/productos/:id', (req, res) => {
