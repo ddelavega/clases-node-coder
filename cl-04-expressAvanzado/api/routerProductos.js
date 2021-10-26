@@ -50,22 +50,12 @@ routerProductos.put('/productos/:id', (req, res) => {
   }
 });
 
-routerProductos.post('/productos', async (req, res, next) => {
+routerProductos.post('/productos', async (req, res,next) => {
   let idX = 0;
   productos.length ? idX = productos[productos.length - 1].id + 1 : idX = 1;
   productos.push({...req.body, id: idX});
-  
-  try {
-    res.json(req.body);
-    res.json({
-      status: 200,
-      message: "POST data ok from index",
-      productos
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send('Server error');
-  }
+  res.json(req.body);
+  res.redirect('/');
 });
 
 routerProductos.delete('/productos/:id', (req, res) => {
