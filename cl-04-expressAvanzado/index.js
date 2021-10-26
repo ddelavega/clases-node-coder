@@ -9,10 +9,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
 const port = process.env.PORT || 8080;
-// const router = Router();
 
-app.use('/api', routerProductos);
-
+app.use('/', routerProductos);
 
 const server = app.listen(port, () => {
   console.log(`Escuchando al puerto: ${port} en http://localhost:${port}`);

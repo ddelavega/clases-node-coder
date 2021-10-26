@@ -1,7 +1,5 @@
 const { Router } = require('express');
-
 const routerProductos = Router();
-
 let productos = [
   {
     "title": "Keycron XS",
@@ -11,11 +9,7 @@ let productos = [
   }
 ];
 
-routerProductos.get('/productos', async (req, res) => {
-    // res.json({
-    //   productos
-    // });
-
+routerProductos.get('/api/productos', async (req, res) => {
   try {
     res.json({
       status: 200,
@@ -28,7 +22,7 @@ routerProductos.get('/productos', async (req, res) => {
   }
 });
 
-routerProductos.get('/productos/:id', (req, res) => {
+routerProductos.get('/api/productos/:id', (req, res) => {
   const { id } = req.params;
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
@@ -39,7 +33,7 @@ routerProductos.get('/productos/:id', (req, res) => {
   }
 });
 
-routerProductos.put('/productos/:id', (req, res) => {
+routerProductos.put('/api/productos/:id', (req, res) => {
   const {title, price, thumbnail} = req.body;
   const { id } = req.params;
   if (productos.find(element => element.id === parseInt(id))) {
@@ -50,21 +44,27 @@ routerProductos.put('/productos/:id', (req, res) => {
   }
 });
 
-routerProductos.post('/productos', async (req, res,next) => {
+routerProductos.post('/api/productos', async (req, res) => {
   let idX = 0;
   productos.length ? idX = productos[productos.length - 1].id + 1 : idX = 1;
   productos.push({...req.body, id: idX});
-  res.json(req.body);
-  return res.redirect('/public');
+  let producto = await {...req.body, id: idX};
+  try {
+    res.json({msg: "Subido con éxito!", producto, productos});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server error');
+  }
 });
 
-routerProductos.delete('/productos/:id', (req, res) => {
+routerProductos.delete('/api/productos/:id', (req, res) => {
   const { id } = req.params;
   const producto = productos.findIndex(p => p.id === parseInt(id));
   if(producto !== -1) {
     productos.splice(producto, 1);
     console.log(producto, productos);
     res.json({msj: `Se borró el producto con ID: ${id}`});
+ 
   } else {
     console.log(producto, productos);
     res.json({msj: `No se encontró el producto con ID: ${id}`});
