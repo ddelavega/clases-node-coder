@@ -11,12 +11,23 @@ let productos = [
   }
 ];
 
-routerProductos.get('/productos', (req, res) => {
-	res.json(productos);
+routerProductos.get('/productos', async (req, res) => {
+  try {
+    res.json({
+      status: 200,
+      message: "Get data ok",
+      productos
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Server error');
+  }
 });
 
 routerProductos.get('/productos/:id', (req, res) => {
   const { id } = req.params;
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
   if (productos.find(element => element.id === parseInt(id))){
     res.json(productos.find(element => element.id === parseInt(id)));
   } else {
