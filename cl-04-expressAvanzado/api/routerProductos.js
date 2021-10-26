@@ -55,7 +55,7 @@ routerProductos.post('/productos', async (req, res,next) => {
   productos.length ? idX = productos[productos.length - 1].id + 1 : idX = 1;
   productos.push({...req.body, id: idX});
   res.json(req.body);
-  res.redirect('/');
+  res.redirect('./../');
 });
 
 routerProductos.delete('/productos/:id', (req, res) => {
