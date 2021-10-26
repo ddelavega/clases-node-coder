@@ -15,12 +15,14 @@ routerProductos.get('/productos', async (req, res) => {
     // res.json({
     //   productos
     // });
+
   try {
-      res.json({
+    res.json({
       status: 200,
       message: "Get data ok from index",
       productos
     });
+    res.redirect(301, '/public');
   } catch (error) {
     console.error(error);
     return res.status(500).send('Server error');
