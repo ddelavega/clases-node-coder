@@ -15,7 +15,7 @@ routerProductos.get('/productos', async (req, res) => {
   try {
     res.json({
       status: 200,
-      message: "Get data ok",
+      message: "Get data ok from index",
       productos
     });
   } catch (error) {
